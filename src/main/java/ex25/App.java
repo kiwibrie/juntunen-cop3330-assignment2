@@ -25,69 +25,63 @@ public class App {
     }
 
     public int passwordValidator(String password){
-        boolean hasNum = numValidator(password);
-        boolean hasChar = charValidator(password);
-        boolean hasSpecial = specialValidator(password);
+        int hasNum = numValidator(password);
+        int hasSpecial = specialValidator(password);
 
-        if(password.length() < 8){ //less than 8 chars, v weak / weak
-            if(hasNum && !hasChar){
-                return 1; //only num, very weak
-            } else if (hasChar && !hasNum){
-                return 2; //only char, weak
-            } else {
-                return 3; //char&&num, <8, fair
+        if(password.length() < 8){
+            if(hasNum > 0){
+                if(hasNum == password.length()) return 1;
             }
-        } else { // >= 8 chars
-            if(hasNum && hasChar){
-                return 4; //strong
-            } else if (hasNum && hasChar && hasSpecial){
-                return 5; //very strong
-            } else {
-                return 3; //fair
+            return 2;
+        } else {
+            if((hasNum > 0) && (hasSpecial > 0)){
+                if ((hasNum != password.length()) || (hasSpecial != password.length())){
+                    return 5;
+                }
+            } else if ((hasSpecial > 0) || (hasNum > 0)){
+                return 4;
             }
+            return 3;
         }
     }
 
-    public void printOutput(int strengthlvl, String password){
+    public void printOutput(int strength_lvl, String password){
         String strength;
-        switch (strengthlvl){
-            case 1: strength = "very weak ";
-            case 2: strength = "weak ";
-            case 3: strength = "fair ";
-            case 4: strength = "strong ";
-            case 5: strength = "very strong";
+        switch (strength_lvl){
+            case 1: strength = " very weak"; break;
+            case 2: strength = " weak"; break;
+            case 3: strength = " fair"; break;
+            case 4: strength = " strong"; break;
+            case 5: strength = " very strong"; break;
             default: strength = "";
         }
 
-        System.out.printf("The password '%s' is a %spassword.", password, strength);
+        System.out.printf("The password '%s' is a%s password.", password, strength);
     }
 
-    public boolean numValidator(String password){
+    public int numValidator(String password){
         char[] array = password.toCharArray();
+        int count = 0;
         for(int i = 0; i < password.length(); i++){
             if(Character.isDigit(array[i])){
-                return true;
+                count++;
             }
         }
-        return false;
+        return count;
     }
 
-    public boolean charValidator(String password){
-
-
-    }
-
-    public boolean specialValidator(String password){
+    public int specialValidator(String password){
         char[] charSearch = {'\'', '"', '/', '.', ',', '>', '<', '!', '?',
                 '@', '#', '$', '%', '&', '*', '(', ')', '-', '+', '=', '_',
-                ';', ':'};
+                ';', ':', '~'}; //i dont know what special chars to include :/
+        int count = 0;
         for(int i = 0; i < password.length(); i++){
             char chr = password.charAt(i);
             for(int j = 0; j < charSearch.length; j++){
-                if(charSearch[j] == chr) return true;
+                if(charSearch[j] == chr) count++;
             }
         }
-        return false;
+        return count;
     }
 
 }

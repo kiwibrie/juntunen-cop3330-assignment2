@@ -34,11 +34,13 @@ public class App {
             }
             return 2;
         } else {
-            if((hasNum > 0) && (hasSpecial > 0)){
-                if ((hasNum != password.length()) || (hasSpecial != password.length())){
+            if((hasNum == password.length()) || (hasSpecial == password.length())) return 3;
+            if(hasNum > 0){
+                if(hasSpecial > 0){
                     return 5;
                 }
-            } else if ((hasSpecial > 0) || (hasNum > 0)){
+                return 4;
+            } else if (hasSpecial > 0){
                 return 4;
             }
             return 3;

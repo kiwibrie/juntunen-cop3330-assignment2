@@ -19,7 +19,7 @@ public class App {
         double apr = myApp.inputDouble("What is the APR on the card (as a percentage)?");
         double payment = myApp.inputDouble("What is the monthly payment you can make?");
 
-        int months = myApp.calculateCard(balance, apr, payment);
+        int months = PaymentCalculator.calculateMonthsUntilPaidOff(balance, apr, payment);
 
         myApp.printOutput(months);
     }
@@ -32,8 +32,11 @@ public class App {
         System.out.print(prompt+" ");
         return Double.parseDouble(in.nextLine());
     }
+}
 
-    public int calculateCard(double balance, double apr, double payment){
+class PaymentCalculator{
+
+    public static int calculateMonthsUntilPaidOff(double balance, double apr, double payment){
         //n = -(1/30) * log(1 + b/p * (1 - (1 + i)^30)) / log(1 + i)
         double i = (apr/100)/365;
         double bp = balance / payment;
@@ -48,4 +51,5 @@ public class App {
         }
         return (int) months;
     }
+
 }

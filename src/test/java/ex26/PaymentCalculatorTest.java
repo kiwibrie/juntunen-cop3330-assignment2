@@ -10,8 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-public class AppTest {
-    App myApp = new App();
+public class PaymentCalculatorTest {
 
     @Test
     @DisplayName("example 1")
@@ -20,7 +19,7 @@ public class AppTest {
         double apr = 12;
         double payment = 100;
 
-        assertEquals(70, myApp.calculateCard(balance, apr, payment));
+        assertEquals(70, PaymentCalculator.calculateMonthsUntilPaidOff(balance, apr, payment));
     }
 
     @Test
@@ -30,7 +29,7 @@ public class AppTest {
         double apr = 14;
         double payment = 500;
 
-        assertEquals(4, myApp.calculateCard(balance, apr, payment));
+        assertEquals(4, PaymentCalculator.calculateMonthsUntilPaidOff(balance, apr, payment));
     }
 
     @Test @DisplayName("test 3")
@@ -39,8 +38,6 @@ public class AppTest {
         double apr = 12;
         double payment = 200;
 
-        assertEquals(92, myApp.calculateCard(balance, apr, payment));
+        assertEquals(92, PaymentCalculator.calculateMonthsUntilPaidOff(balance, apr, payment));
     }
-
-
 }

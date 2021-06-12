@@ -7,9 +7,7 @@ package ex26;
 
 //Months to pay of a credit card
 import java.util.Scanner;
-
-import static java.lang.Math.log;
-import static java.lang.Math.pow;
+import static java.lang.Math.*;
 
 public class App {
     static Scanner in = new Scanner(System.in);
@@ -35,10 +33,19 @@ public class App {
         return Double.parseDouble(in.nextLine());
     }
 
-    public int calculateCard(double b, double apr, double p){
+    public int calculateCard(double balance, double apr, double payment){
         //n = -(1/30) * log(1 + b/p * (1 - (1 + i)^30)) / log(1 + i)
-        double i = (apr)/365;
-        double middle = log(1 + b/p * (1 - pow(1+i, 30)));
-        return (int) (-(1/30) * middle / log(1 + i));
+        double i = (apr/100)/365;
+        double bp = balance / payment;
+        double x = 1 - (pow(1+i, 30));
+        double y = 1 + bp * x;
+        double numerator = log(y);
+        double denominator = log(1 + i);
+
+        double months = (-1/30.0) * numerator / denominator;
+        if((int)months < months ){
+            months = (int) (months) +1;
+        }
+        return (int) months;
     }
 }

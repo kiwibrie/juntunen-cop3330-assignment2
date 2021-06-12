@@ -5,8 +5,9 @@ package ex30;
  *  Copyright 2021 Brianne Juntunen
  */
 
+import org.junit.Test;
 import org.junit.jupiter.api.DisplayName;
-import org.junit.jupiter.api.Test;
+
 
 public class AppTest {
     App myApp = new App();
